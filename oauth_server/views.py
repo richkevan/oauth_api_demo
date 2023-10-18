@@ -18,4 +18,12 @@ def authorize(request):
     return JsonResponse({"error": "invalid_request"}, status=400)
 
 def index(request):
-  return HttpResponse("Hello, world. You're at the oauth_server index.")    
+  html = """
+  <html>
+    <body>
+      <a href='oauth-api-demo.onrender.com/authorize/?client_secret=rTIC2rpywxewS0R75XwwIXIatTeCyXRi&client_id=Demo&redirect_uri=demo.com%2Fcallback&response_type=code' target='_blank'>Authorize valid client</a>
+      <a href='oauth-api-demo.onrender.com/authorize/?client_secret=rTIC2rpywxewS0R75XwwIXIatTeCyXRi&client_id=Demo&redirect_uri=demo.com%2Fcallback&response_type=request' target='_blank'>Authorize valid client</a>
+    </body>
+  </html>
+  """
+  return HttpResponse(html)    
