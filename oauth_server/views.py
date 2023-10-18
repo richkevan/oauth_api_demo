@@ -6,7 +6,7 @@ from .serializers import ClientSerializer
 # Create your views here.
 def authorize(request):
   params = request.GET.dict()
-  authorize = Client.objects.get(params["response_type"] in response_types, client_secret=params["client_secret"], client_id=params["client_id"], redirect_uri=params["redirect_uri"])
+  authorize = Client.objects.get(client_secret=params["client_secret"], client_id=params["client_id"], redirect_uri=params["redirect_uri"])
   scopes = authorize.scope.all()
   response_types = authorize.response_types.all()
   grant_types = authorize.grant_types.all()
