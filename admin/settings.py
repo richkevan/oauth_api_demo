@@ -30,10 +30,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env("DJANGO_KEY", default='secret-key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env("DEBUG", default=False)
+DEBUG = env("DEBUG")
 
 ALLOWED_HOSTS = [
-    'oauth-api-demo.onrender.com'
+    # 'oauth-api-demo.onrender.com'
 ]
 
 
@@ -86,18 +86,18 @@ WSGI_APPLICATION = 'admin.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-# if not DEBUG:
-DATABASES = {'default': dj_database_url.config(
-    default=env("DATABASE_URL"),
-    conn_max_age=600,
-                )}
-# else:
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.sqlite3',
-#             'NAME': BASE_DIR / 'db.sqlite3',
-#         }
-#     }
+if not DEBUG:
+    DATABASES = {'default': dj_database_url.config(
+        default=env("DATABASE_URL"),
+        conn_max_age=600,
+                    )}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 
 # Password validation
