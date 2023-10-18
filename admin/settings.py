@@ -1,4 +1,11 @@
 import os
+import environ
+from pathlib import Path
+import dj_database_url
+
+env = environ.Env()
+environ.Env.read_env()
+
 """
 Django settings for admin project.
 
@@ -11,8 +18,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
-from pathlib import Path
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -22,10 +27,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("DJANGO_KEY", default='secret-key')
+SECRET_KEY = env("DJANGO_KEY", default='secret-key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG", default=False)
+DEBUG = env("DEBUG", default=False)
 
 ALLOWED_HOSTS = [
     'oauth-api-demo.onrender.com'
@@ -79,18 +84,18 @@ WSGI_APPLICATION = 'admin.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-if not DEBUG:
-    DATABASES = {'default': dj_database_url.config(
-        default=os.environ.get("DATABASE_URL"),
-        conn_max_age=600,
-                 )}
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
+# if not DEBUG:
+DATABASES = {'default': dj_database_url.config(
+    default=env("DATABASE_URL"),
+    conn_max_age=600,
+                )}
+# else:
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.sqlite3',
+#             'NAME': BASE_DIR / 'db.sqlite3',
+#         }
+#     }
 
 
 # Password validation
