@@ -33,7 +33,7 @@ SECRET_KEY = env("DJANGO_KEY", default='secret-key')
 DEBUG = env("DEBUG")
 
 ALLOWED_HOSTS = [
-    # 'oauth-api-demo.onrender.com'
+    'oauth-api-demo.onrender.com'
 ]
 
 
