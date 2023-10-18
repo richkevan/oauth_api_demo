@@ -12,4 +12,6 @@ def authorize(request):
   grant_types = authorize.grant_types.all()
   serializer = ClientSerializer(authorize)
   return JsonResponse(serializer.data, safe=False)
-    
+
+def index(request):
+  return HttpResponse("Hello, world. You're at the oauth_server index.")    
