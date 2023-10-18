@@ -9,7 +9,7 @@ def authorize(request):
   authorize = Client.objects.get(client_secret=params["client_secret"])
   authorize = authorize.filter(client_id=params["client_id"])
   authorize = authorize.filter( redirect_uri=params["redirect_uri"])
-  scopes = authorize.scope.all()
+  response_types = authorize.response_types.all()
   serializer = ClientSerializer(authorize)
   if authorize & params["response_type"] in response_types:
     return JsonResponse(serializer.data, safe=False, status=200)
