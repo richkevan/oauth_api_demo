@@ -6,12 +6,15 @@ from .serializers import ClientSerializer
 # Create your views here.
 def authorize(request):
   params = request.GET.dict()
-  authorize = Client.objects.get(client_secret=params["client_secret"])
+  authorize = Client.objects.get(params["response_type"] in response_types, client_secret=params["client_secret"], client_id=params["client_id"], redirect_uri=params["redirect_uri"])
   scopes = authorize.scope.all()
   response_types = authorize.response_types.all()
   grant_types = authorize.grant_types.all()
   serializer = ClientSerializer(authorize)
-  return JsonResponse(serializer.data, safe=False)
+  if authorize.DoesNotExist:
+    return JsonResponse({"error": "invalid_request"}, status=400)
+  else:
+    return JsonResponse(serializer.data, safe=False, status=200)
 
 def index(request):
   return HttpResponse("Hello, world. You're at the oauth_server index.")    
