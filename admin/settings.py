@@ -2,14 +2,10 @@ import os
 import environ
 from pathlib import Path
 import dj_database_url
-import mimetypes
-
-
 
 
 env = environ.Env()
 environ.Env.read_env()
-mimetypes.add_type("text/javascript", ".js", True)
 """
 Django settings for admin project.
 
@@ -63,6 +59,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware'
 ]
 
 ROOT_URLCONF = 'admin.urls'
@@ -137,7 +134,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = '/opt/render/project/src/static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
