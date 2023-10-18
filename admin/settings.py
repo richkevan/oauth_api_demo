@@ -2,10 +2,14 @@ import os
 import environ
 from pathlib import Path
 import dj_database_url
+import mimetypes
+
+
+
 
 env = environ.Env()
 environ.Env.read_env()
-
+mimetypes.add_type("text/javascript", ".js", True)
 """
 Django settings for admin project.
 
